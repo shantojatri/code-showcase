@@ -1,13 +1,21 @@
 <script setup lang="ts">
+import { onMounted, ref } from "vue";
 import { useModal } from "@/composables/useModal";
 import Modal from "@/components/common/Modal.vue";
+import { useCounterStore } from "@/stores/notes";
+import { type NoteType } from "@/interfaces/notesType";
+
+const { allNotes } = useCounterStore();
 const modal = useModal();
+const updateModal = ref(false);
+const noteModal = ref<NoteType>();
 
 const bgColorArray = [
   "bg-red-200",
   "bg-green-200",
   "bg-yellow-200",
   "bg-blue-200",
+  "bg-cyan-200",
   "bg-gray-200",
   "bg-pink-200",
   "bg-purple-200",
@@ -20,8 +28,16 @@ const randomIntFromInterval = (min: number, max: number): number => {
 const rndInt = randomIntFromInterval(1, 7);
 
 const openHandler = () => {
+  updateModal.value = false;
   modal.showModal();
 };
+
+const editHandler = (note: NoteType) => {
+  noteModal.value = note;
+  updateModal.value = true;
+  modal.showModal();
+};
+
 </script>
 
 <template>
@@ -34,99 +50,39 @@ const openHandler = () => {
     </div>
   </div>
 
-  <div class="grid grid-cols-4 gap-5 my-5">
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 my-5">
     <!-- Single Note item -->
-    <div class="bg-red-200 p-4 rounded-lg" :class="bgColorArray[rndInt]">
+    <div
+      v-for="(note, index) in allNotes"
+      :key="index"
+      class="p-4 rounded-lg min-h-[280px] flex flex-col justify-between"
+      :class="note.color"
+    >
       <!-- Note header -->
-      <div class="flex items-center justify-between mb-2">
-        <h3 class="text-xl font-bold">Hello Dello</h3>
-        <div class="flex gap-x-1">
-          <button><i class="ri-edit-box-line ri-lg"></i></button>
-          <button><i class="ri-delete-bin-line ri-lg"></i></button>
+      <div>
+        <div class="flex items-start justify-between mb-2 gap-x-3">
+          <h3 class="text-xl font-bold">{{ note.title }}</h3>
+          <div class="flex gap-x-1">
+            <button @click="editHandler(note)">
+              <i class="ri-edit-box-line ri-lg"></i>
+            </button>
+            <button>
+              <i class="ri-delete-bin-line ri-lg"></i>
+            </button>
+          </div>
         </div>
-      </div>
 
-      <!-- Notes content  -->
-      <p class="text-justify text-base font-normal">
-        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Deserunt
-        exercitationem dolore vero assumenda repellendus, quia eum totam quaerat
-        obcaecati repellat.
-      </p>
+        <!-- Notes content  -->
+        <p class="text-justify text-base font-normal">
+          {{ note.note }}
+        </p>
+      </div>
       <!-- Showing created at  -->
       <p class="text-md text-black mt-4">
-        Created: <span class="font-semibold">22/10/2023</span>
-      </p>
-    </div>
-
-    <!-- Single Note item -->
-    <div class="bg-red-200 p-4 rounded-lg" :class="bgColorArray[rndInt + 1]">
-      <!-- Note header -->
-      <div class="flex items-center justify-between mb-2">
-        <h3 class="text-xl font-bold">Hello Dello</h3>
-        <div class="flex gap-x-1">
-          <button><i class="ri-edit-box-line ri-lg"></i></button>
-          <button><i class="ri-delete-bin-line ri-lg"></i></button>
-        </div>
-      </div>
-
-      <!-- Notes content  -->
-      <p class="text-justify text-base font-normal">
-        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Deserunt
-        exercitationem dolore vero assumenda repellendus, quia eum totam quaerat
-        obcaecati repellat.
-      </p>
-      <!-- Showing created at  -->
-      <p class="text-md text-black mt-4">
-        Created: <span class="font-semibold">22/10/2023</span>
-      </p>
-    </div>
-
-    <!-- Single Note item -->
-    <div class="bg-red-200 p-4 rounded-lg" :class="bgColorArray[rndInt + 2]">
-      <!-- Note header -->
-      <div class="flex items-center justify-between mb-2">
-        <h3 class="text-xl font-bold">Hello Dello</h3>
-        <div class="flex gap-x-1">
-          <button><i class="ri-edit-box-line ri-lg"></i></button>
-          <button><i class="ri-delete-bin-line ri-lg"></i></button>
-        </div>
-      </div>
-
-      <!-- Notes content  -->
-      <p class="text-justify text-base font-normal">
-        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Deserunt
-        exercitationem dolore vero assumenda repellendus, quia eum totam quaerat
-        obcaecati repellat.
-      </p>
-      <!-- Showing created at  -->
-      <p class="text-md text-black mt-4">
-        Created: <span class="font-semibold">22/10/2023</span>
-      </p>
-    </div>
-
-    <!-- Single Note item -->
-    <div class="bg-red-200 p-4 rounded-lg" :class="bgColorArray[rndInt + 3]">
-      <!-- Note header -->
-      <div class="flex items-center justify-between mb-2">
-        <h3 class="text-xl font-bold">Hello Dello</h3>
-        <div class="flex gap-x-1">
-          <button><i class="ri-edit-box-line ri-lg"></i></button>
-          <button><i class="ri-delete-bin-line ri-lg"></i></button>
-        </div>
-      </div>
-
-      <!-- Notes content  -->
-      <p class="text-justify text-base font-normal">
-        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Deserunt
-        exercitationem dolore vero assumenda repellendus, quia eum totam quaerat
-        obcaecati repellat.
-      </p>
-      <!-- Showing created at  -->
-      <p class="text-md text-black mt-4">
-        Created: <span class="font-semibold">22/10/2023</span>
+        Created: <span class="font-semibold">{{ note.createdAt }}</span>
       </p>
     </div>
   </div>
 
-  <Modal v-if="modal.isOpen.value" />
+  <Modal v-if="modal.isOpen.value" :update="updateModal" :note="noteModal" />
 </template>
