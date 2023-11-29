@@ -1,4 +1,8 @@
 <script setup lang="ts">
+import { useModal } from "@/composables/useModal";
+import Modal from "@/components/common/Modal.vue";
+const modal = useModal();
+
 const bgColorArray = [
   "bg-red-200",
   "bg-green-200",
@@ -14,13 +18,19 @@ const randomIntFromInterval = (min: number, max: number): number => {
 };
 
 const rndInt = randomIntFromInterval(1, 7);
+
+const openHandler = () => {
+  modal.showModal();
+};
 </script>
 
 <template>
   <div class="w-full mt-3">
     <div class="flex items-center justify-between">
       <h2 class="text-lg font-semibold text-gray-700">All Notes</h2>
-      <button><i class="ri-add-circle-line ri-2x"></i></button>
+      <button @click="openHandler">
+        <i class="ri-add-circle-line ri-2x"></i>
+      </button>
     </div>
   </div>
 
@@ -117,4 +127,6 @@ const rndInt = randomIntFromInterval(1, 7);
       </p>
     </div>
   </div>
+
+  <Modal v-if="modal.isOpen.value" />
 </template>
