@@ -3,10 +3,12 @@ import { onMounted, reactive } from "vue";
 import { useModal } from "@/composables/useModal";
 import { bgColorArray } from "@/data/bgColors";
 import { useNoteStore } from "@/stores/notes";
+import toast from "@/utils/Toaster";
 
 const props = defineProps(["update", "note"]);
 const modal = useModal();
 const noteStore = useNoteStore();
+const { errorToast, successToast } = toast();
 
 const noteParams = reactive({
   id: "",
@@ -21,12 +23,14 @@ const createNoteHandler = async () => {
   const { id, ...newParams } = noteParams;
   await noteStore.addNote(newParams);
   modal.hideModal();
+  successToast("Note created successfully!");
 };
 
 const updateNoteHandler = async (noteId: string) => {
   const { id, ...newParams } = noteParams;
   await noteStore.updateNote(noteId, newParams);
   modal.hideModal();
+  successToast("Note updated successfully!");
 };
 
 const closeHandler = () => {

@@ -5,11 +5,13 @@ import Modal from "@/components/common/Modal.vue";
 import { useNoteStore } from "@/stores/notes";
 import { type NoteType } from "@/interfaces/notesType";
 import moment from "moment";
+import toast from "@/utils/Toaster";
 
 const noteStore = useNoteStore();
 const modal = useModal();
 const updateModal = ref(false);
 const noteModal = ref<NoteType>();
+const { errorToast, successToast } = toast();
 
 const openHandler = () => {
   updateModal.value = false;
@@ -24,6 +26,7 @@ const editHandler = (note: NoteType) => {
 
 const deleteHandler = async (id: string) => {
   await noteStore.deleteNote(id);
+  successToast("Delete note successfully.");
 };
 
 onMounted(() => {
