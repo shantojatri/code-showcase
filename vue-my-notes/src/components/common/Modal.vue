@@ -9,6 +9,7 @@ const modal = useModal();
 const noteStore = useNoteStore();
 
 const noteParams = reactive({
+  id: "",
   title: "",
   note: "",
   colorClass: "",
@@ -17,7 +18,14 @@ const noteParams = reactive({
 const createNoteHandler = async () => {
   noteParams.colorClass =
     bgColorArray[Math.floor(Math.random() * bgColorArray.length)];
-  await noteStore.addNote(noteParams);
+  const { id, ...newParams } = noteParams;
+  await noteStore.addNote(newParams);
+  modal.hideModal();
+};
+
+const updateNoteHandler = async (noteId: string) => {
+  const { id, ...newParams } = noteParams;
+  await noteStore.updateNote(noteId, newParams);
   modal.hideModal();
 };
 
@@ -27,9 +35,10 @@ const closeHandler = () => {
 
 onMounted(() => {
   if (props.update) {
+    noteParams.id = props?.note?._id;
     noteParams.title = props?.note?.title;
     noteParams.note = props?.note?.note;
-    console.log("Please update the note");
+    noteParams.colorClass = props?.note?.colorClass;
   }
 });
 </script>
@@ -91,7 +100,7 @@ onMounted(() => {
               <div class="flex flex-col p-4 gap-y-3">
                 <button
                   v-if="update"
-                  @click.once="closeHandler"
+                  @click.once="updateNoteHandler(noteParams?.id)"
                   class="bg-cyan-400 px-4 py-2 block w-full text-white font-semibold"
                 >
                   Update

@@ -20,9 +20,9 @@ export const useNoteStore = defineStore("notes", () => {
       });
   }
 
-  async function addNote(item: NoteType) {
+  async function addNote(note: NoteType) {
     await axios
-      .post(`${apiUrl}/notes`, item)
+      .post(`${apiUrl}/notes`, note)
       .then((res) => {
         getAllNotes();
         console.log(res);
@@ -32,9 +32,9 @@ export const useNoteStore = defineStore("notes", () => {
       });
   }
 
-  async function deleteNote(noteId: string) {
+  async function updateNote(noteId: string, note: NoteType) {
     await axios
-      .delete(`${apiUrl}/notes/` + noteId)
+      .patch(`${apiUrl}/notes/${noteId}`, note)
       .then((res) => {
         getAllNotes();
       })
@@ -43,5 +43,16 @@ export const useNoteStore = defineStore("notes", () => {
       });
   }
 
-  return { notes, allNotes, addNote, getAllNotes, deleteNote };
+  async function deleteNote(noteId: string) {
+    await axios
+      .delete(`${apiUrl}/notes/${noteId}`)
+      .then((res) => {
+        getAllNotes();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  return { notes, allNotes, addNote, getAllNotes, deleteNote, updateNote };
 });
