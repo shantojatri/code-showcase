@@ -1,10 +1,11 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { ConfigModule } from '@nestjs/config'; 
+import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { AuthModule } from './auth/auth.module';
 import { NotesModule } from './notes/notes.module';
+import { PassportModule } from '@nestjs/passport';
 
 @Module({
   imports: [
@@ -13,8 +14,9 @@ import { NotesModule } from './notes/notes.module';
       isGlobal: true,
     }),
     MongooseModule.forRoot(process.env.MONGO_DB_URI),
-    AuthModule,
     NotesModule,
+    AuthModule,
+    PassportModule,
   ],
   controllers: [AppController],
   providers: [AppService],

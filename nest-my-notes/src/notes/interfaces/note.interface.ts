@@ -1,4 +1,4 @@
-export class NoteEntity {
+export interface INote {
   title: string;
   note: string;
   colorClass: string;
