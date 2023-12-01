@@ -1,24 +1,34 @@
 <script setup lang="ts">
 import { onMounted, reactive } from "vue";
 import { useModal } from "@/composables/useModal";
-const modal = useModal();
+import { bgColorArray } from "@/data/bgColors";
+import { useNoteStore } from "@/stores/notes";
 
 const props = defineProps(["update", "note"]);
+const modal = useModal();
+const noteStore = useNoteStore();
 
 const noteParams = reactive({
-  title: '',
-  note: '',
-})
+  title: "",
+  note: "",
+  colorClass: "",
+});
+
+const createNoteHandler = async () => {
+  noteParams.colorClass =
+    bgColorArray[Math.floor(Math.random() * bgColorArray.length)];
+  await noteStore.addNote(noteParams);
+  modal.hideModal();
+};
 
 const closeHandler = () => {
   modal.hideModal();
 };
 
-
 onMounted(() => {
   if (props.update) {
-    noteParams.title = props?.note?.title
-    noteParams.note = props?.note?.note
+    noteParams.title = props?.note?.title;
+    noteParams.note = props?.note?.note;
     console.log("Please update the note");
   }
 });
@@ -68,7 +78,7 @@ onMounted(() => {
                 <div class="mt-2">
                   <label for="note">Write your note</label>
                   <textarea
-                  v-model="noteParams.note"
+                    v-model="noteParams.note"
                     name="note"
                     id="note"
                     rows="6"
@@ -88,7 +98,7 @@ onMounted(() => {
                 </button>
                 <button
                   v-else
-                  @click.once="closeHandler"
+                  @click.once="createNoteHandler"
                   class="bg-blue-400 px-4 py-2 block w-full text-white font-semibold"
                 >
                   Create

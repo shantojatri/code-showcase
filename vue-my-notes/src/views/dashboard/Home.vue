@@ -2,30 +2,14 @@
 import { onMounted, ref } from "vue";
 import { useModal } from "@/composables/useModal";
 import Modal from "@/components/common/Modal.vue";
-import { useCounterStore } from "@/stores/notes";
+import { useNoteStore } from "@/stores/notes";
 import { type NoteType } from "@/interfaces/notesType";
+import moment from "moment";
 
-const { allNotes } = useCounterStore();
+const noteStore = useNoteStore();
 const modal = useModal();
 const updateModal = ref(false);
 const noteModal = ref<NoteType>();
-
-const bgColorArray = [
-  "bg-red-200",
-  "bg-green-200",
-  "bg-yellow-200",
-  "bg-blue-200",
-  "bg-cyan-200",
-  "bg-gray-200",
-  "bg-pink-200",
-  "bg-purple-200",
-];
-
-const randomIntFromInterval = (min: number, max: number): number => {
-  return Math.floor(Math.random() * (max - min + 1) + min);
-};
-
-const rndInt = randomIntFromInterval(1, 7);
 
 const openHandler = () => {
   updateModal.value = false;
@@ -38,6 +22,13 @@ const editHandler = (note: NoteType) => {
   modal.showModal();
 };
 
+const deleteHandler = async (id: string) => {
+  await noteStore.deleteNote(id);
+};
+
+onMounted(() => {
+  noteStore.getAllNotes();
+});
 </script>
 
 <template>
@@ -53,10 +44,10 @@ const editHandler = (note: NoteType) => {
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 my-5">
     <!-- Single Note item -->
     <div
-      v-for="(note, index) in allNotes"
+      v-for="(note, index) in noteStore?.allNotes"
       :key="index"
       class="p-4 rounded-lg min-h-[280px] flex flex-col justify-between"
-      :class="note.color"
+      :class="note?.colorClass"
     >
       <!-- Note header -->
       <div>
@@ -66,7 +57,7 @@ const editHandler = (note: NoteType) => {
             <button @click="editHandler(note)">
               <i class="ri-edit-box-line ri-lg"></i>
             </button>
-            <button>
+            <button @click="deleteHandler(note?._id)">
               <i class="ri-delete-bin-line ri-lg"></i>
             </button>
           </div>
@@ -79,7 +70,10 @@ const editHandler = (note: NoteType) => {
       </div>
       <!-- Showing created at  -->
       <p class="text-md text-black mt-4">
-        Created: <span class="font-semibold">{{ note.createdAt }}</span>
+        Created:
+        <span class="font-semibold">{{
+          moment(note.createdAt).format("l")
+        }}</span>
       </p>
     </div>
   </div>

@@ -1,29 +1,29 @@
-import { createRouter, createWebHistory } from 'vue-router' 
+import { createRouter, createWebHistory } from "vue-router";
 
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
-  routes: [ 
+  history: createWebHistory(import.meta.env.APP_BASE_URL),
+  routes: [
     {
-      path: '/',
-      name: 'home', 
-      component: () => import('../views/index.vue')
+      path: "/",
+      name: "home",
+      component: () => import("../views/index.vue"),
     },
     {
-      path: '/login',
-      name: 'login', 
-      component: () => import('../views/auth/Login.vue')
+      path: "/login",
+      name: "login",
+      component: () => import("../views/auth/Login.vue"),
     },
     {
-      path: '/register',
-      name: 'register', 
-      component: () => import('../views/auth/Register.vue')
+      path: "/register",
+      name: "register",
+      component: () => import("../views/auth/Register.vue"),
     },
     {
-      path: '/dashboard',
-      name: 'dashboard', 
-      component: () => import('../views/dashboard/Home.vue')
+      path: "/dashboard",
+      name: "dashboard",
+      component: () => import("../views/dashboard/Home.vue"),
     },
-  ]
-})
+  ],
+});
 
-export default router
+export default router;

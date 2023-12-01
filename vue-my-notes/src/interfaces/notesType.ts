@@ -1,6 +1,6 @@
 export interface NoteType {
-    title: string,
-    note: string,
-    color: string,
-    createdAt: string,
+  title: string;
+  note: string;
+  colorClass: string;
+  createdAt?: string;
 }
