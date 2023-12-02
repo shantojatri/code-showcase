@@ -38,7 +38,6 @@ export class NotesService {
     const existingNote = await this.noteModel.findByIdAndUpdate(
       id,
       updateNoteDto,
-      { new: true },
     );
     if (!existingNote) {
       throw new NotFoundException(`Note #${id} not found`);
