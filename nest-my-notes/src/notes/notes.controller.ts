@@ -8,13 +8,16 @@ import {
   Delete,
   ValidationPipe,
   UsePipes,
+  UseGuards,
 } from '@nestjs/common';
 import { NotesService } from './notes.service';
 import { CreateNoteDto } from './dto/create-note.dto';
 import { UpdateNoteDto } from './dto/update-note.dto';
 import { INote } from './interfaces/note.interface';
+import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 
 @Controller('notes')
+@UseGuards(JwtAuthGuard)
 export class NotesController {
   constructor(private readonly notesService: NotesService) {}
 
