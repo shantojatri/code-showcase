@@ -53,7 +53,7 @@ onMounted(() => {
       <div>
         <div class="bg-black opacity-80 fixed inset-0 z-[100]"></div>
         <div
-          class="overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 w-full md:inset-0 h-[calc(100%-1rem)] max-h-full justify-center items-center flex !z-[101]"
+          class="overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 w-full md:inset-0 h-[calc(100%-1rem)] max-h-full justify-center items-center flex !z-[101] backdrop-blur-sm"
         >
           <div class="relative p-4 max-w-2xl max-h-full md:h-auto">
             <div
