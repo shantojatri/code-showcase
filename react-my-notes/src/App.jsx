@@ -1,16 +1,22 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
-import "./App.css";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import { Outlet } from "react-router-dom";
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
     <>
+      {/* Navbar  */}
       <Navbar />
+
+      {/* Main content start */}
+      <main class="min-h-[85vh]">
+        <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4 mt-8">
+          <Outlet />
+        </div>
+      </main>
+      {/* Main content ends */}
+
+      {/* Footer */}
       <Footer />
     </>
   );
