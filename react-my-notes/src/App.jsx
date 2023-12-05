@@ -9,8 +9,8 @@ function App() {
       <Navbar />
 
       {/* Main content start */}
-      <main class="min-h-[85vh]">
-        <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4 mt-8">
+      <main className="min-h-[85vh]">
+        <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4 mt-8">
           <Outlet />
         </div>
       </main>
