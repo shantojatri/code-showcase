@@ -57,11 +57,18 @@ const DashboardPage = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 my-5">
         {notes &&
           notes.map((note) => {
-            return <Note key={note._id} note={note} deleteNote={deleteNote} />;
+            return (
+              <Note
+                key={note._id}
+                note={note}
+                deleteNote={deleteNote}
+                getAllNotes={getAllNotes}
+              />
+            );
           })}
       </div>
 
-      <Modal ref={ChildRef} />
+      <Modal ref={ChildRef} getAllNotes={getAllNotes} />
     </>
   );
 };

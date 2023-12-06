@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 import Modal from "./Modal";
 
-const Note = ({ note, deleteNote }) => {
+const Note = ({ note, deleteNote, getAllNotes }) => {
   const ChildRef = useRef();
 
   return (
@@ -31,7 +31,7 @@ const Note = ({ note, deleteNote }) => {
         </p>
       </div>
 
-      <Modal ref={ChildRef} note={note} />
+      <Modal ref={ChildRef} note={note} getAllNotes={getAllNotes} />
     </>
   );
 };
