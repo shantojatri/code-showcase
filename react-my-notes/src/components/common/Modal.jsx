@@ -6,8 +6,9 @@ import React, {
 } from "react";
 import { bgColorArray } from "../../data/bgColor";
 import axios from "axios";
-import { toast } from "react-toastify";
+import toaster from "../../utils/Toaster.js";
 
+const { errorToast, successToast } = toaster();
 const Modal = (props, ref) => {
   const [isOpen, setIsOpen] = useState(false);
   const [noteParams, setNoteParams] = useState({
@@ -49,18 +50,10 @@ const Modal = (props, ref) => {
           props.getAllNotes();
           setNoteParams({ title: "", note: "" });
           closeModal();
-          toast.success("Note Created Successfully", {
-            position: "top-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "light",
-          });
+          successToast("Note Created Successfully");
         })
         .catch((err) => {
+          errorToast(err);
           console.log(err);
         });
     } catch (error) {
@@ -77,18 +70,10 @@ const Modal = (props, ref) => {
         .then((res) => {
           props.getAllNotes();
           closeModal();
-          toast.success("Note Updated Successfully", {
-            position: "top-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "light",
-          });
+          successToast("Note Updated Successfully");
         })
         .catch((err) => {
+          errorToast(err);
           console.log(err);
         });
     } catch (error) {

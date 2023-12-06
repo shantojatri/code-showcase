@@ -2,9 +2,10 @@ import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import Note from "../../components/common/Note";
 import Modal from "../../components/common/Modal";
-import { toast } from "react-toastify";
+import toaster from "../../utils/Toaster.js";
 
 const DashboardPage = () => {
+  const { errorToast, successToast } = toaster();
   const [notes, setNotes] = useState([]);
 
   const ChildRef = useRef();
@@ -17,6 +18,7 @@ const DashboardPage = () => {
           setNotes(res.data);
         })
         .catch((err) => {
+          errorToast(err);
           console.log(err);
         });
     } catch (error) {
@@ -34,19 +36,11 @@ const DashboardPage = () => {
       await axios
         .delete(`http://localhost:3010/api/v1/notes/${noteId}`)
         .then(() => {
-          toast.success("Note Deleted Successfully", {
-            position: "top-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "light",
-          });
+          successToast("Note Deleted Successfully");
           getAllNotes();
         })
         .catch((err) => {
+          errorToast(err);
           console.log(err);
         });
     } catch (error) {
