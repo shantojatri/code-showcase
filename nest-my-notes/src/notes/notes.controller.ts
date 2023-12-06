@@ -17,7 +17,7 @@ import { INote } from './interfaces/note.interface';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 
 @Controller('notes')
-@UseGuards(JwtAuthGuard)
+// @UseGuards(JwtAuthGuard)
 export class NotesController {
   constructor(private readonly notesService: NotesService) {}
 
