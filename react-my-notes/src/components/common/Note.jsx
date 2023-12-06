@@ -1,5 +1,6 @@
 import React, { useRef } from "react";
 import Modal from "./Modal";
+import moment from "moment";
 
 const Note = ({ note, deleteNote, getAllNotes }) => {
   const ChildRef = useRef();
@@ -27,7 +28,9 @@ const Note = ({ note, deleteNote, getAllNotes }) => {
 
         <p className="text-md text-black mt-4">
           Created:
-          <span className="font-semibold">{note.createdAt}</span>
+          <span className="font-semibold ml-1">
+            {moment(note.createdAt).format("l")}
+          </span>
         </p>
       </div>
 
