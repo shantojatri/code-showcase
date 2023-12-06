@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\NoteController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,13 +19,9 @@ Route::get('/', function () {
     return view('index');
 });
 
-Route::get('/login', function () {
-    return view('auth.login');
-});
-Route::get('/register', function () {
-    return view('auth.register');
-});
+Route::get('/login', [AuthController::class, 'loginView'])->name('login');
+Route::get('/register', [AuthController::class, 'registerView'])->name('register');
 
-Route::get('/dashboard', function () {
-    return view('dashboard.index');
+Route::name('back.')->prefix('dashboard')->group(function () {
+    Route::resource('notes', NoteController::class);
 });
