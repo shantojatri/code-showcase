@@ -6,6 +6,7 @@ import React, {
 } from "react";
 import { bgColorArray } from "../../data/bgColor";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const Modal = (props, ref) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -48,6 +49,16 @@ const Modal = (props, ref) => {
           props.getAllNotes();
           setNoteParams({ title: "", note: "" });
           closeModal();
+          toast.success("Note Created Successfully", {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          });
         })
         .catch((err) => {
           console.log(err);
@@ -64,9 +75,18 @@ const Modal = (props, ref) => {
       await axios
         .patch(`http://localhost:3010/api/v1/notes/${noteId}`, newParams)
         .then((res) => {
-          console.log(res);
           props.getAllNotes();
           closeModal();
+          toast.success("Note Updated Successfully", {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          });
         })
         .catch((err) => {
           console.log(err);

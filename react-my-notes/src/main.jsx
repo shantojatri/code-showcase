@@ -4,6 +4,7 @@ import { RouterProvider } from "react-router-dom";
 import router from "./router/router";
 import "./index.css";
 import "remixicon/fonts/remixicon.css";
+import "react-toastify/dist/ReactToastify.css";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
