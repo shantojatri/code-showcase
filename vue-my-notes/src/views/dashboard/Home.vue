@@ -11,7 +11,7 @@ const noteStore = useNoteStore();
 const modal = useModal();
 const updateModal = ref(false);
 const noteModal = ref<NoteType>();
-const { errorToast, successToast } = toast();
+const { successToast } = toast();
 
 const openHandler = () => {
   updateModal.value = false;

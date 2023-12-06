@@ -8,7 +8,7 @@ import toast from "@/utils/Toaster";
 const props = defineProps(["update", "note"]);
 const modal = useModal();
 const noteStore = useNoteStore();
-const { errorToast, successToast } = toast();
+const { successToast } = toast();
 
 const noteParams = reactive({
   id: "",
