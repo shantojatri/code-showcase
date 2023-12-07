@@ -40,7 +40,9 @@
                             </div>
 
                             <!-- Form -->
-                            <form>
+                            <form action="{{ route('authenticate') }}" method="POST">
+                                @csrf
+
                                 <div class="grid gap-y-4">
                                     <!-- Form Group -->
                                     <div>
@@ -50,10 +52,6 @@
                                                 class="py-3 px-4 block w-full border border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500"
                                                 required />
                                         </div>
-                                        <p class="hidden text-xs text-red-600 mt-2" id="email-error">
-                                            Please include a valid email address so we can get back to
-                                            you
-                                        </p>
                                     </div>
                                     <!-- End Form Group -->
 
@@ -67,9 +65,6 @@
                                                 class="py-3 px-4 block w-full border border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500"
                                                 required />
                                         </div>
-                                        <p class="hidden text-xs text-red-600 mt-2" id="password-error">
-                                            8+ characters required
-                                        </p>
                                     </div>
                                     <!-- End Form Group -->
 

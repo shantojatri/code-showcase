@@ -5,6 +5,17 @@
         </a>
 
         <div class="flex md:order-2 space-x-3 md:space-x-2 rtl:space-x-reverse">
+            @auth
+
+            <form action="{{ route('logout') }}" method="POST">
+                @csrf
+
+                <button type="submit"
+                    class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center">
+                    Logout
+                </button>
+            </form>
+            @else
             <a href="/login">
                 <button type="button"
                     class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center">
@@ -18,11 +29,7 @@
                     Register
                 </button>
             </a>
-
-            <button type="button"
-                class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center hidden">
-                Logout
-            </button>
+            @endauth
         </div>
     </div>
 </nav>

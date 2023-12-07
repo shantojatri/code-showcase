@@ -40,15 +40,18 @@
                             </div>
 
                             <!-- Form -->
-                            <form>
+                            <form accept="{{ route('user.register') }}" method="POST">
+                                @csrf
+
                                 <div class="grid gap-y-4">
                                     <!-- Form Group -->
                                     <div>
                                         <label for="full-name" class="block text-sm mb-2">Full Name</label>
                                         <div class="relative">
-                                            <input type="text" id="full-name" name="full-name"
+                                            <input type="text" id="full-name" name="full_name"
                                                 class="py-3 px-4 block w-full border border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500"
-                                                placeholder="Example: John Doe" required />
+                                                placeholder="Example: John Doe" value="{{ old('full_name') }}"
+                                                required />
                                         </div>
                                     </div>
                                     <!-- End Form Group -->
@@ -59,7 +62,8 @@
                                         <div class="relative">
                                             <input type="tel" id="mobile" name="mobile"
                                                 class="py-3 px-4 block w-full border border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500"
-                                                placeholder="Example: 017XX-XXXXXX" required />
+                                                placeholder="Example: 017XX-XXXXXX" value="{{ old('mobile') }}"
+                                                required />
                                         </div>
                                     </div>
                                     <!-- End Form Group -->
@@ -70,31 +74,27 @@
                                         <div class="relative">
                                             <input type="email" id="email" name="email"
                                                 class="py-3 px-4 block w-full border border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500"
-                                                placeholder="Example: john.doe@app.com" required />
+                                                placeholder="Example: john.doe@app.com" value="{{ old('email') }}"
+                                                required />
                                         </div>
-                                        <p class="hidden text-xs text-red-600 mt-2" id="email-error">
-                                            Please include a valid email address so we can get back to
-                                            you
-                                        </p>
                                     </div>
                                     <!-- End Form Group -->
 
                                     <!-- Form Group -->
                                     <div>
-                                        <label for="email" class="block text-sm mb-2">Gender</label>
+                                        <label for="gender" class="block text-sm mb-2">Gender</label>
                                         <div class="relative">
-                                            <select id="countries"
+                                            <select id="gender" name="gender"
                                                 class="border border-gray-200 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
                                                 <option selected>Choose a gender</option>
-                                                <option value="male">Male</option>
-                                                <option value="female">Female</option>
-                                                <option value="others">Others</option>
+                                                <option value="male" {{ old('gender')=='male' ? 'selected' : '' }}>Male
+                                                </option>
+                                                <option value="female" {{ old('gender')=='female' ? 'selected' : '' }}>
+                                                    Female</option>
+                                                <option value="others" {{ old('gender')=='others' ? 'selected' : '' }}>
+                                                    Others</option>
                                             </select>
                                         </div>
-                                        <p class="hidden text-xs text-red-600 mt-2" id="email-error">
-                                            Please include a valid email address so we can get back to
-                                            you
-                                        </p>
                                     </div>
                                     <!-- End Form Group -->
 
@@ -108,9 +108,6 @@
                                                 class="py-3 px-4 block w-full border border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500"
                                                 placeholder="Enter your password..." required />
                                         </div>
-                                        <p class="hidden text-xs text-red-600 mt-2" id="password-error">
-                                            8+ characters required
-                                        </p>
                                     </div>
                                     <!-- End Form Group -->
 
@@ -126,16 +123,13 @@
                                                 class="py-3 px-4 block w-full border border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500"
                                                 placeholder="Enter your password again..." required />
                                         </div>
-                                        <p class="hidden text-xs text-red-600 mt-2" id="password_confirmation-error">
-                                            8+ characters required
-                                        </p>
                                     </div>
                                     <!-- End Form Group -->
 
                                     <!-- Checkbox -->
                                     <div class="flex items-center">
                                         <div class="flex">
-                                            <input id="remember-me" name="remember-me" type="checkbox"
+                                            <input id="remember-me" name="remember_me" type="checkbox"
                                                 class="shrink-0 mt-0.5 border-gray-200 rounded text-blue-600 pointer-events-none focus:ring-blue-500"
                                                 checked />
                                         </div>
