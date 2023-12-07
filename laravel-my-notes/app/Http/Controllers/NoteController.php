@@ -12,7 +12,8 @@ class NoteController extends Controller
      */
     public function index()
     {
-        return view('dashboard.index');
+        $notes = Note::get(['id', 'title', 'note_details', 'color_class', 'created_at']);
+        return view('dashboard.index', compact('notes'));
     }
 
     /**
