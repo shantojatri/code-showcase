@@ -22,6 +22,6 @@ Route::get('/', function () {
 Route::get('/login', [AuthController::class, 'loginView'])->name('login');
 Route::get('/register', [AuthController::class, 'registerView'])->name('register');
 
-Route::name('back.')->prefix('dashboard')->group(function () {
+Route::name('dashboard.')->prefix('dashboard')->group(function () {
     Route::resource('notes', NoteController::class);
 });
