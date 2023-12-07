@@ -17,16 +17,20 @@ const rndInt = randomIntFromInterval(1, 7);
 </script>
 
 <template>
-  <div class="grid grid-cols-4 gap-5 my-10">
+  <div class="w-full mt-8">
+    <div class="flex items-center justify-between">
+      <h2 class="text-base font-semibold text-gray-700">
+        Please login to store yout note.
+      </h2>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-4 gap-5 my-5">
     <!-- Single Note item -->
     <div class="bg-red-200 p-4 rounded-lg" :class="bgColorArray[rndInt]">
       <!-- Note header -->
       <div class="flex items-center justify-between mb-2">
         <h3 class="text-lg font-bold">Hello Dello</h3>
-        <!-- <div class="flex gap-x-1">
-          <button><i class="ri-edit-box-line ri-lg"></i></button>
-          <button><i class="ri-delete-bin-line ri-lg"></i></button>
-        </div> -->
       </div>
 
       <!-- Notes content  -->
