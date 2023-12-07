@@ -1,4 +1,8 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { ref } from "vue";
+
+const isLoggedIn = ref(true);
+</script>
 
 <template>
   <nav
@@ -17,27 +21,30 @@
       </RouterLink>
 
       <div class="flex md:order-2 space-x-3 md:space-x-2 rtl:space-x-reverse">
-        <RouterLink to="/login">
-          <button
-            type="button"
-            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center"
-          >
-            Login
-          </button>
-        </RouterLink>
+        <template v-if="!isLoggedIn">
+          <RouterLink to="/login">
+            <button
+              type="button"
+              class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center"
+            >
+              Login
+            </button>
+          </RouterLink>
 
-        <RouterLink to="/register">
-          <button
-            type="button"
-            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center"
-          >
-            Register
-          </button>
-        </RouterLink>
+          <RouterLink to="/register">
+            <button
+              type="button"
+              class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center"
+            >
+              Register
+            </button>
+          </RouterLink>
+        </template>
 
         <button
+          v-else
           type="button"
-          class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center hidden"
+          class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center"
         >
           Logout
         </button>
